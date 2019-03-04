@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.iBeaconScanner" android:installLocation="auto">
+	<uses-sdk android:minSdkVersion="19" android:targetSdkVersion="27" />
+  <uses-permission android:name="android.permission.BLUETOOTH"/>
+  <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+
+  <!--this is necessary for Android v6+ to get the device name and address-->
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<application android:label="iBeaconScanner.Android"></application>
+</manifest>
