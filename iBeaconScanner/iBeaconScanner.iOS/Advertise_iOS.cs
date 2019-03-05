@@ -12,33 +12,45 @@ namespace iBeaconScanner.iOS
 {
     class Advertise_iOS : IAdvertise
     {
-        CBPeripheralManager peripheralMgr;
+        public static CBPeripheralManager peripheralMgr;
         BTPeripheralDelegate peripheralDelegate;
         public void Start(string UUID)
         {
-            var monkeyUUID = new NSUuid("12345678-1234-1234-1234-123456780001");
-            var beaconRegion = new CLBeaconRegion(monkeyUUID, 1, 1, "Whatever");
+            var proximityUUID = new NSUuid("12345678-1234-1234-1234-123456780001");
+            var beaconRegion = new CLBeaconRegion(proximityUUID, 100, 1, "Whatever");
 
             //power - the received signal strength indicator (RSSI) value (measured in decibels) of the beacon from one meter away
             var power = new NSNumber(-59);
             NSMutableDictionary peripheralData = beaconRegion.GetPeripheralData(power);
-            peripheralDelegate = new BTPeripheralDelegate();
+            peripheralDelegate = new BTPeripheralDelegate(peripheralData);
             peripheralMgr = new CBPeripheralManager(peripheralDelegate, DispatchQueue.DefaultGlobalQueue);
 
-            peripheralMgr.StartAdvertising(peripheralData);
 
+            Console.WriteLine("Beacon Debug: "+ "Started Advertising:" + UUID);
             ShowAlert("Started Advertising:" + UUID, 5);
         }
 
         class BTPeripheralDelegate : CBPeripheralManagerDelegate
         {
+            NSMutableDictionary peripheralData;
+            public BTPeripheralDelegate(NSMutableDictionary peripheralData)
+            {
+                this.peripheralData = peripheralData;
+            }
             public override void StateUpdated(CBPeripheralManager peripheral)
             {
                 if (peripheral.State == CBPeripheralManagerState.PoweredOn)
                 {
-                    Console.WriteLine("powered on");
+                    Console.WriteLine("Beacon Debug: powered on");
+                    peripheralMgr.StartAdvertising(peripheralData);
                 }
             }
+            public override void AdvertisingStarted(CBPeripheralManager peripheral, NSError error)
+            {
+                //base.AdvertisingStarted(peripheral, error);
+                Console.WriteLine("Beacon Debug: AdvertisingStarted");
+            }
+
         }
         const double LONG_DELAY = 3.5;
         const double SHORT_DELAY = 2.0;
