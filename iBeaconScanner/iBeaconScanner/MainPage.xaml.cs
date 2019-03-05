@@ -50,10 +50,16 @@ namespace iBeaconScanner
             ResultLabel.Text = "Background searching for \"" + UUIDEntry.Text + "\"";
             scanner = CrossBeacons.Current.WhenRegionStatusChanged().Subscribe(regionArgs =>
                 {
-                    CrossLocalNotifications.Current.Show("Welcome Home :o)", regionArgs.Region.Uuid.ToString(), 101);
+                    
+                    CrossLocalNotifications.Current.Show("Office Beacon", regionArgs.IsEntering?"Welcome Home :o)":"Sad to see you go :o(", 101);
                 });
 
             CrossBeacons.Current.StartMonitoring(new BeaconRegion("Whatever", new Guid(UUIDEntry.Text), 0, 0));
+        }
+        private void AdvertiseButton_Clicked(object sender, EventArgs e)
+        {
+            ResultLabel.Text = "Advertising "+UUIDEntry.Text;
+            DependencyService.Get<IAdvertise>().Start(UUIDEntry.Text);
         }
     }
 }

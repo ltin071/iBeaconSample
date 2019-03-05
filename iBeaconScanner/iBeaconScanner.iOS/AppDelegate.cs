@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Foundation;
 using UIKit;
 using UserNotifications;
@@ -44,6 +43,9 @@ namespace iBeaconScanner.iOS
             }
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
+
+
+            
 
             return base.FinishedLaunching(app, options);
         }
