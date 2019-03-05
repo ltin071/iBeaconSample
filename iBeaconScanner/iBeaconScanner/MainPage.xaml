@@ -5,12 +5,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:iBeaconScanner">
 
-    <StackLayout>
+    <StackLayout VerticalOptions="Center">
         <!--  Place new controls here  -->
-        <Label
-            HorizontalOptions="Center"
-            Text="Welcome to Xamarin.Forms!"
-            VerticalOptions="CenterAndExpand" />
+        <Entry x:Name="UUIDEntry" Placeholder="UUID" />
+        <Button Clicked="SearchButton_Clicked" Text="Search" />
+        <Label x:Name="ResultLabel" />
     </StackLayout>
 
 </ContentPage>

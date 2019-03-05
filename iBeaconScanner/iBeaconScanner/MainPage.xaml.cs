@@ -11,43 +11,37 @@ namespace iBeaconScanner
     public partial class MainPage : ContentPage
     {
         IObservable<bool> permission;
+        IDisposable scanner;
         public MainPage()
         {
             InitializeComponent();
-            init();
+            Init();
         }
 
-        private void init()
+        private void Init()
         {
-            Console.WriteLine("samBeacon Permission: Start");
             permission = CrossBeacons.Current.RequestPermission();
-            Console.WriteLine("samBeacon Permission: End");
             permission.Subscribe(result =>
             {
-                Console.WriteLine("samBeacon Permission:" + result);
-                if (result)
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    var scanner = CrossBeacons
-                        .Current
-                        .WhenBeaconRanged(new BeaconRegion(
-                            "Whatever",
-                            new Guid("12345678-1234-1234-1234-123456780001"), 0, 0
-                        ))
-                        .Subscribe(scanResult =>
-                        {
-                            // do something with it - FYI: this will not be on the main thread, so if you are displaying to the UI, make sure to invoke on it
-                            Console.WriteLine("samBeacon Beacon Found:" + scanResult.Proximity);
-                            OnBeaconFound(scanResult);
-                        });
-                }
+                    ResultLabel.Text = "Permission Granted: "+result;
+                });
             });
         }
-        private void OnBeaconFound(Beacon scanResult)
+
+        private void SearchButton_Clicked(object sender, EventArgs e)
         {
-            Xamarin.Forms.Device.BeginInvokeOnMainThread(() =>
-            {
-                App.Current.MainPage.DisplayAlert("Beacon", "Beacon Found:" + scanResult.Proximity, "OK");
-            });
+            ResultLabel.Text = "Searching for \""+ UUIDEntry.Text+"\"";
+            //if(scanner != null) scanner.Dispose();
+            scanner = CrossBeacons.Current.WhenBeaconRanged(new BeaconRegion("Whatever", new Guid(UUIDEntry.Text), 0, 0))
+                        .Subscribe(scanResult =>
+                        {
+                            Device.BeginInvokeOnMainThread(() =>
+                            {
+                                ResultLabel.Text = "Beacon Found:" + scanResult.Proximity+" "+scanResult.Accuracy;
+                            });
+                        });
         }
     }
 }
