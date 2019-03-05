@@ -1,6 +1,9 @@
 # iBeaconSample
 
-*Descriptions*
-1. Make sure you change your own GUID in MainPage.xaml.cs
-2. This is meant to be sample for https://github.com/aritchie/beacons
-3. This is only tested on iOS, not yet test on Android
+**Notes**
+- This is an Xamarin iBeacon Sample for future implementation
+- Make sure you input correct UUID in main page (Otherwise it will crash =D)
+
+**NuGet Credit**
+- Plugin.Beacons
+- Xam.Plugins.Notifier
