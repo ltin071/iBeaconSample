@@ -51,6 +51,8 @@ namespace iBeaconScanner.iOS
                 Console.WriteLine("Beacon Debug: AdvertisingStarted");
             }
 
+
+
         }
         const double LONG_DELAY = 3.5;
         const double SHORT_DELAY = 2.0;

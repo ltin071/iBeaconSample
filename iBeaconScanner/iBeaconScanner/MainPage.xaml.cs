@@ -29,6 +29,7 @@ namespace iBeaconScanner
                     ResultLabel.Text = "Permission Granted: "+result;
                 });
             });
+            CrossBeacons.Current.StopAllMonitoring();
         }
 
         private void SearchButton_Clicked(object sender, EventArgs e)
