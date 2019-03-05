@@ -1,4 +1,5 @@
 ﻿using Plugin.Beacons;
+using Plugin.LocalNotifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +43,17 @@ namespace iBeaconScanner
                                 ResultLabel.Text = "Beacon Found:" + scanResult.Proximity+" "+scanResult.Accuracy;
                             });
                         });
+        }
+
+        private void BackgroundSearchButton_Clicked(object sender, EventArgs e)
+        {
+            ResultLabel.Text = "Background searching for \"" + UUIDEntry.Text + "\"";
+            scanner = CrossBeacons.Current.WhenRegionStatusChanged().Subscribe(regionArgs =>
+                {
+                    CrossLocalNotifications.Current.Show("Welcome Home :o)", regionArgs.Region.Uuid.ToString(), 101);
+                });
+
+            CrossBeacons.Current.StartMonitoring(new BeaconRegion("Whatever", new Guid(UUIDEntry.Text), 0, 0));
         }
     }
 }

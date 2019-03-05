@@ -36,6 +36,7 @@
 	<array>
 		<string>location</string>
 		<string>bluetooth-central</string>
+		<string>remote-notification</string>
 	</array>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Your location is required for xyz benefits for you</string>
@@ -43,5 +44,7 @@
 	<string>Your location is required for xyz benefits for you</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Your location is required for xyz benefits for you</string>
+	<key>XSAppIconAssets</key>
+	<string>Assets.xcassets/AppIcon.appiconset</string>
 </dict>
 </plist>

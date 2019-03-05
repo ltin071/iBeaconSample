@@ -9,6 +9,7 @@
         <!--  Place new controls here  -->
         <Entry x:Name="UUIDEntry" Placeholder="UUID" />
         <Button Clicked="SearchButton_Clicked" Text="Search" />
+        <Button Clicked="BackgroundSearchButton_Clicked" Text="Search in Background" />
         <Label x:Name="ResultLabel" />
     </StackLayout>
 
